@@ -1,16 +1,11 @@
 import json
+
 import telebot
-import credentials
 from telebot import types
 
-bot = telebot.TeleBot(credentials.TOKEN, parse_mode=None)
+import credentials
 
-ACCEPT_STATUSES = [
-    "да",
-    "yes",
-    "д",
-    "y",
-]
+bot = telebot.TeleBot(credentials.TOKEN, parse_mode=None)
 
 
 # ---------- Просмотр текущих задач ----------
@@ -21,7 +16,10 @@ def task_name(message: types.Message):
         str_tasks = ""
         for task in tasks:
             str_tasks += str(task) + "\n"
-        bot.send_message(message.chat.id, str_tasks)
+        if str_tasks == '':
+            bot.send_message(message.chat.id, 'Задач нет')
+        else:
+            bot.send_message(message.chat.id, str_tasks)
 
 
 # ---------- Добавление новой задачи ----------
@@ -92,7 +90,7 @@ def new_task_status(message: types.Message):
         return
     task = {"id": message.text}
     bot.send_message(
-        message.chat.id, f"Введите нужный статус (d = disable, f = finish, a = active):"
+        message.chat.id, "Введите нужный статус (d = disable, f = finish, a = active):"
     )
     bot.register_next_step_handler(message, change, task)
 
@@ -124,12 +122,12 @@ def change(message: types.Message, task):
 # ---------- Очистка выполненных задач ----------
 @bot.message_handler(commands=["clear"])
 def clear(message: types.Message):
-    bot.send_message(message.chat.id, f"Уверены?")
+    bot.send_message(message.chat.id, "Уверены?")
     bot.register_next_step_handler(message, goodbye_tasks)
 
 
 def goodbye_tasks(message: types.Message):
-    if message.text.lower() == "c" or message.text.lower() not in ACCEPT_STATUSES:
+    if message.text.lower() == "c":
         cancel(message)
         return
     with open("tasks.json", "r", encoding="utf-8") as fd:
