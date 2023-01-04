@@ -99,11 +99,11 @@ def change(message: types.Message, task):
     if message.text.lower() == "c":
         cancel(message)
         return
-    if message.text == "d":
+    if message.text.lower() == "d":
         task.update({"status": "disable"})
-    elif message.text == "f":
+    elif message.text.lower() == "f":
         task.update({"status": "finish"})
-    elif message.text == "a":
+    elif message.text.lower() == "a":
         task.update({"status": "active"})
     else:
         cancel(message)
