@@ -1,1 +1,7 @@
 pytelegrambotapi==4.7.0
+aiogram==2.22.1
+sqlalchemy==1.4.43
+aiogram==2.22.1
+sqlalchemy==1.4.43
+matplotlib==3.6.2
+aiogram_calendar==0.1.1
