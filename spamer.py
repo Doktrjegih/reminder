@@ -75,7 +75,7 @@ async def is_deadline_reached(task, now) -> bool:
 #     if task.repeat_iter < task.repeat_each:
 #         db.increment_repeat_iter(task.remind_id)
 #     else:
-#         db.reset_repeat_iter(task.remind_id)
+#         db.set_repeat_iter(task.remind_id, 0)
 #         await bot.send_message(credentials.CHAT_ID,
 #                                f'{task.name} (напоминание каждые {task.repeat_each * 5} минут)')
 

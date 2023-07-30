@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 .idea
 credentials.py
+database.sqlite
+queue_handlers.py
+calendar/page2.png
